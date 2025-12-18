@@ -58,7 +58,8 @@ export const handler = async (event) => {
 &nbsp;
 
 - Response for all above will be : Hello from Lambda!
-- Capture event objects created for each API request and explore the event parameters
+- CloudWatch : Capture genrated event objects for each API request from CloudWatch logs
+- Explore the event objects and its parameters
 - Event generated for GET /product/{id}?query-parameter
 
 ```
