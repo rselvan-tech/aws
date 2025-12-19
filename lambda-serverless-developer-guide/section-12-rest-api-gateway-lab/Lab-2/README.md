@@ -121,7 +121,7 @@ export const handler = async (event) => {
 
 &nbsp;
 
-![cad06a9b218a1a08060d4e9673875dbe.png](../../../../_resources/cad06a9b218a1a08060d4e9673875dbe-1.png)
+![url](images/invoke-url.png)
 
 &nbsp;
 
