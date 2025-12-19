@@ -51,9 +51,9 @@ export const handler = async (event) => {
 
 | GET | https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product |
 | --- | --- |
-| GET | https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product/5 |
+| GET ID | https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product/5 |
 | POST | https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product  <br><br/>raw body:  <br><br/>{  <br><br/>"name": "IPhone",  <br><br/>"price": "950"  <br><br/>} |
-| GET  | [https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product/5?category=phone](https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product/5) |
+| GET QUERY PARAM  | https://tbcilo5gwb.execute-api.us-east-1.amazonaws.com/product/5?category=phone |
 
 &nbsp;
 
