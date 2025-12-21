@@ -2,3 +2,4 @@
 config.env
 *.env
 eksctl-config.yaml
+temp/

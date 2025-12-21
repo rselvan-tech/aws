@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: usermgmt-svc
+spec:
+  type: NodePort
+  selector:
+    app: usermgmt
+  ports: 
+    - port: 8095
+      targetPort: 8095
+      nodePort: 31231
