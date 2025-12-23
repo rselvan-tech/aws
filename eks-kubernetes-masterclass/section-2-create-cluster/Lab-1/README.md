@@ -1,9 +1,29 @@
 
 # EKS Cluster Setup
 
+## What This Does
+
+Creates an EKS cluster with:
+- Control Plane (AWS managed)
+- 4 worker nodes (t3.small)
+- Pre-installed: vpc-cni, kube-proxy, coredns
+- Share one IAM role (all pods get same permissions)
+
 ## Prerequisites
-- AWS Vault configured
-- eksctl installed
+
+```bash
+# Check you have these installed
+aws --version        # AWS CLI
+eksctl version       # eksctl (need v0.165.0+)
+kubectl version      # kubectl
+aws-vault --version  # AWS Vault
+```
+## Files
+
+- `setup-eks.sh` - Script to create cluster
+- `eksctl-config.template.yaml` - Cluster configuration template
+- `config.env` - My settings (not in git)
+- `config.env.example` - Example settings
 
 ## Assumptions
 
@@ -23,27 +43,78 @@ This setup is designed for the following scenario:
 - If you use the same identity for both CLI and Console, you can remove the `accessConfig` section
 - If you want to grant access to additional users/roles, add more entries to `accessEntries`
 
+## Architecture
+
+### Cluster Components
+```
+EKS Cluster (my-eks)
+├── Control Plane (AWS Managed)
+├── Managed Node Group (4 x t3.small)
+│   ├── kube-proxy (DaemonSet)
+│   ├── coredns (Deployment)
+│   └── aws-node/vpc-cni (DaemonSet)
+└── Default Addons (AWS Managed)
+    ├── vpc-cni (networking)
+    ├── kube-proxy (network proxy)
+    └── coredns (DNS)
+```
+
+### IAM Setup
+```
+Node IAM Role (Full Permissions - Default Setup)
+├── AmazonEKSWorkerNodePolicy
+├── AmazonEC2ContainerRegistryReadOnly
+├── AmazonEKS_CNI_Policy              ⚠️ All pods inherit this
+└── (Additional policies as needed)
+
+Console Access
+└── IAM User: ${CONSOLE_USER_ARN}
+    └── Policy: AmazonEKSClusterAdminPolicy
+    └── Scope: Full cluster admin access
+```
+
 ## Setup
 
-1. Copy and configure environment file:
-```bash
+1. **Copy the config file**
+   ```bash
    cp config.env.example config.env
-   # Edit config.env with your console user ARN
-```
+   ```
 
-2. Run with AWS Vault:
-```bash
+2. **Edit config.env with your IAM user**
+   ```bash
+   CONSOLE_USER_ARN=arn:aws:iam::YOUR_ACCOUNT:user/YOUR_USERNAME
+   ```
+
+3. **Start AWS Vault** (need 12-hour session for cluster creation)
+   ```bash
+   aws-vault exec admin --duration=12h -- /bin/bash
+   ```
+
+4. **Create the cluster**
+   ```bash
    chmod +x setup-eks.sh
-   aws-vault exec your-profile -- ./setup-eks.sh [CLUSTER_NAME] [AWS_REGION]
-```
+   ./setup-eks.sh              # Creates cluster named "my-eks"
+   ./setup-eks.sh prod-cluster # Or use custom name
+   ```
 
-## Examples
+
+## Verify It Worked
+
 ```bash
-# Use defaults (my-eks, region from AWS profile)
-aws-vault exec your-profile -- ./setup-eks.sh
+# Check cluster exists
+eksctl get cluster
 
-# Custom cluster name
-aws-vault exec your-profile -- ./setup-eks.sh prod-cluster
 
-# Custom cluster name and region
-aws-vault exec your-profile -- ./setup-eks.sh prod-cluster us-west-2
+# See nodes
+kubectl get nodes
+
+# Check addons
+eksctl get addons --cluster <cluster name>
+
+
+
+## Clean Up
+
+```bash
+eksctl delete cluster -f eksctl-config.yaml
+```

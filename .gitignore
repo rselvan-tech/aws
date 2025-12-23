@@ -1,5 +1,30 @@
+#Temp
+eks-kubernetes-masterclass/section-2-create-cluster/Lab-2/
+
+
 .env
-config.env
 *.env
+
+config.env
 eksctl-config.yaml
+irsa-trust-policy.json
+
 temp/
+secrets/
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Certificates / Keys
+*.pem
+*.key
+*.crt
+
+# Backup files
+*.bak
+*.tmp
