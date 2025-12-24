@@ -1,0 +1,22 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eksdemo1
+  region: us-east-2
+
+managedNodeGroups:
+  - name: eksdemo1-ng-private1
+    instanceType: t3.small
+    minSize: 2
+    maxSize: 4
+    volumeSize: 20
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        autoScaler: true        # For cluster autoscaler
+        externalDNS: true       # For managing Route53 DNS records
+        ebs: true               # For EBS volumes (most common)
+        albIngress: true        # For Application Load Balancer
+        cloudWatch: true        # For logging and metrics
+        imageBuilder: true      # For ECR access

@@ -1,0 +1,73 @@
+# Deployment 1: User Service (handles /users path)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: custom-apps
+  labels:
+    app: user-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-api
+        image: hashicorp/http-echo:latest
+        args:
+        - "-text=USER SERVICE ✅\nVersion: 1.0\nPath: /users\nPod: $(HOSTNAME)\nThis service handles all user-related operations"
+        - "-listen=:8080"
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+
+---
+# Service for User Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: custom-apps
+  labels:
+    app: user-service
+spec:
+  type: NodePort
+  selector:
+    app: user-service
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+
+
+
