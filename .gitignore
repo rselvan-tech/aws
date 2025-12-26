@@ -1,30 +1,50 @@
 #Temp
 eks-kubernetes-masterclass/section-2-create-cluster/Lab-2/
 
-
-.env
-*.env
-
-config.env
+#Files used for eks cluster creation
 eksctl-config.yaml
 irsa-trust-policy.json
 
 temp/
 secrets/
 
-# OS / Editor
-.DS_Store
-.vscode/
-.idea/
-
-# Logs
-*.log
-
-# Certificates / Keys
-*.pem
-*.key
-*.crt
 
 # Backup files
 *.bak
 *.tmp
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+*.env
+config.env
+
+# AWS CLI/SDK credentials
+.aws/
+*.pem
+*.key
+*.crt
+
+
+# Temporary files
+.DS_Store
+*.tmp
+*.swp
+.idea/
+
+# VS Code
+.vscode/
+.history/
+
+
+# Optional: build/output folders
+dist/
+build/
