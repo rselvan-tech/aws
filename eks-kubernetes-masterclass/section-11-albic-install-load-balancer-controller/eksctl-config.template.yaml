@@ -1,0 +1,33 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ${CLUSTER_NAME}
+  region: ${AWS_REGION}
+
+managedNodeGroups:
+  - name: ${CLUSTER_NAME}-ng-private1
+    instanceType: t3.small
+    minSize: 2
+    maxSize: 4
+    desiredCapacity: 4
+    volumeSize: 20
+    privateNetworking: true
+
+    iam:
+      withAddonPolicies:
+        autoScaler: true        # Cluster Autoscaler
+        externalDNS: true       # Route53 External DNS
+        ebs: true               # EBS CSI Driver
+        albIngress: true        # AWS Load Balancer Controller
+        cloudWatch: true        # CloudWatch Logs & Metrics
+        imageBuilder: true      # ECR access
+
+accessConfig:
+  authenticationMode: API_AND_CONFIG_MAP
+  accessEntries:
+    - principalARN: ${CONSOLE_USER_ARN}
+      accessPolicies:
+        - policyARN: arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy
+          accessScope:
+            type: cluster
