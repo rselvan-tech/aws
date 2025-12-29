@@ -1,0 +1,16 @@
+{
+  "name": "section-20-aws-sdk-dynamodb-crud-operations",
+  "version": "1.0.0",
+  "main": "DynamoDBClient.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.958.0"
+  }
+}
