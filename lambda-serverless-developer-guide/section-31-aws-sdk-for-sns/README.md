@@ -491,7 +491,7 @@ Success :  {
 
 ## Additional Resources
 
-### Official Documentation
+### AWS Documentation
 - [AWS SDK for JavaScript v3 Documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
 - [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/)
 - [AWS SDK SNS Client Documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/sns/)
