@@ -135,7 +135,7 @@ redirect_uri=https%3A%2F%2Fd84l1y8p4kdic.cloudfront.net&
 response_type=code&
 scope=email+openid+phone
 
-Change to: 
+Change to:
 
 https://us-east-2adz7o2xho.auth.us-east-2.amazoncognito.com/signup?client_id=46t0gho7vu7t8pnrjqce1qmevr&redirect_uri=https%3A%2F%2Fd84l1y8p4kdic.cloudfront.net&response_type=token&scope=email+openid+phone
 

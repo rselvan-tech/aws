@@ -9,9 +9,55 @@ temp/
 secrets/
 
 
+# -------------------------
+# detect-secrets / pre-commit
+# -------------------------
+
+
+# -------------------------
+# Node / ESLint
+# -------------------------
+.eslintcache
+
+# -------------------------
+# detect-secrets / git-secrets
+# -------------------------
+.gitallowed       # local only, ignore if not shared
+.secrets.baseline
+
+# -------------------------
+# Semgrep
+# -------------------------
+.semgrep/cache/
+.semgrep/.semgrep_results.json
+
+
+# Local pre-commit cache / hooks
+.pre-commit/              # pre-commit cache, ignore
+
+# -------------------------
+# Secrets / sensitive info
+# -------------------------
+
+# Actual secrets should NEVER be committed
+*.env
+*.env.local
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+secrets.txt
+
+
 # Backup files
 *.bak
 *.tmp
+*.bkp.*
+
+# -------------------------
+# Node.js
+# -------------------------
 
 # Node modules
 node_modules/
@@ -29,9 +75,6 @@ config.env
 
 # AWS CLI/SDK credentials
 .aws/
-*.pem
-*.key
-*.crt
 
 
 # Temporary files

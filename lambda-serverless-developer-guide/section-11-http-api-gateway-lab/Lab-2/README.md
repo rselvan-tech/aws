@@ -16,30 +16,30 @@
 (2) Create API
 
 - Create HTTP API
-    
+
 - API name : Product API
-    
+
 - Integration : Lambda Integration
-    
+
     - select above created lambda function here
 
 <img src="images/configure-api.png" alt="Configure API" width="1082" height="404">
 
 - Configure Routes
-    
+
     | Method | Resource Path | Integration Traget |
     | --- | --- | --- |
     | GET | /product | Lambda function |
     | GET | /product/{id} | Lambda function |
     | POST | /product | Lambda function |
     | DELETE | /product/{id} | Lambda function |
-    
+
     &nbsp;
-    
+
     <img src="images/configure-route.png" alt="Configure Route" width="1048" height="340">
-    
+
 - Configure Stage : default
-    
+
 
 (3) Test API
 

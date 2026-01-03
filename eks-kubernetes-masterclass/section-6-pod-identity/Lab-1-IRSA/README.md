@@ -3,13 +3,13 @@
 ### **Prerequisites**
 
 - AWS CLI configured with admin access
-    
+
 - `eksctl` installed
-    
+
 - kubectl installed and configured
-    
+
 - An existing EKS cluster (v1.26+) in a region
-    
+
 
 * * *
 
@@ -24,11 +24,11 @@ aws eks describe-cluster --name my-cluster --query "cluster.identity.oidc.issuer
 
 - output mostly not  empty →  OIDC Issuer
     - **EKS OIDC Issuer ≠ IAM OIDC Provider**: Your cluster has an OIDC issuer URL (which EKS creates automatically for every cluster), but there's no corresponding IAM OIDC provider created.
-        
+
     - **EKS Always Creates OIDC Issuer**: Every EKS cluster automatically gets an OIDC issuer endpoint - this is standard EKS behavior and has been for a long time. This is what you're seeing in the `describe-cluster` output.
-        
+
     - **IAM OIDC Provider is Separate**: The IAM OIDC provider (which you need for IRSA - IAM Roles for Service Accounts) is a separate AWS IAM resource that must be explicitly created.
-        
+
 
 2.  ****Check if your cluster already has an** IAM OIDC provider:**
 
@@ -114,9 +114,9 @@ metadata:
 `kubectl apply -f sa.yaml`
 
 - The **annotation connects the SA to the IAM role**.
-    
+
 - AWS IRSA webhook will detect it and inject AWS env vars + projected token.
-    
+
 
 * * *
 
@@ -195,9 +195,9 @@ cat $AWS_WEB_IDENTITY_TOKEN_FILE
 ```
 
 - It’s a **JWT token**, signed by Kubernetes API server.
-    
+
 - Contains claims like:
-    
+
 
 ```
 {
@@ -222,15 +222,15 @@ jwt decode <token>
 ## **Step 8: Observe the Full Flow (Behind-the-Scenes)**
 
 1.  **Kubernetes API server** → issues JWT token for SA
-    
+
 2.  **AWS IRSA webhook** → injects token + AWS_ROLE_ARN into pod
-    
+
 3.  **Pod** → AWS SDK uses token + role ARN → `AssumeRoleWithWebIdentity`
-    
+
 4.  **AWS STS** → validates JWT against OIDC issuer + IAM trust policy
-    
+
 5.  **STS** → returns temporary AWS credentials → Pod uses to access AWS services
-    
+
 
 * * *
 
@@ -256,13 +256,13 @@ aws iam delete-open-id-connect-provider --open-id-connect-provider-arn arn:aws:i
 ### ✅ **Key Learning Outcomes**
 
 - Understand **OIDC and JWT in Kubernetes**.
-    
+
 - Understand **IAM OIDC provider registration**.
-    
+
 - Learn how **IAM Role trust policy is created and validated**.
-    
+
 - Connect **ServiceAccount annotations** to **IAM roles** via IRSA.
-    
+
 - Observe **IRSA runtime workflow**: Pod → AWS SDK → STS → AWS service.
-    
+
 - Inspect **projected JWT token** issued by Kubernetes API server.

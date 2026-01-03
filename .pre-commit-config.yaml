@@ -1,0 +1,75 @@
+repos:
+  # 1️⃣ Detect generic secrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+
+  # 2️⃣ Git-secrets for AWS keys
+  - repo: local
+    hooks:
+      - id: git-secrets
+        name: AWS git-secrets
+        entry: git secrets --scan
+        language: system
+        types: [file]
+        stages: [pre-commit]
+
+  # 3️⃣ ESLint (without security plugin)
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.39.1
+    hooks:
+      - id: eslint
+        name: ESLint
+        args: ["--fix"]
+        files: \.(js|ts|mjs|cjs)$
+        types: [file]
+        additional_dependencies:
+          - eslint@9.39.1
+
+  # 4️⃣ Semgrep security scan
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.103.0
+    hooks:
+      - id: semgrep
+        name: Semgrep security scan
+        args:
+          - "--config"
+          - "p/ci"
+          - "--config"
+          - "p/javascript"
+          - "--config"
+          - "p/nodejs"
+        stages: [pre-commit]
+
+  # 5️⃣ YAML validation ONLY (no auto-fixing!)
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        name: Validate YAML files
+        args: [--format, parsable]
+
+  # 6️⃣ Code quality hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: detect-private-key
+
+# 7 Replace AWS Account ID with Placeholder
+  - repo: local
+    hooks:
+      - id: replace-account-id
+        name: Replace AWS Account ID with Placeholder
+        entry: ./replace_account_id.sh
+        language: system
+        types: [file]
+        stages: [pre-commit]

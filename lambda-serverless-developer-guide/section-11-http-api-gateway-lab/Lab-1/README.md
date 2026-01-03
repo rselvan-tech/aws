@@ -26,23 +26,23 @@ export const handler = async (event) => {
 (2) Create API
 
 - Create HTTP API
-    
+
 - API name : Product API
-    
+
 - Integration : Lambda Integration
-    
+
     - select above created lambda function here
 - Configure Routes
-    
+
     | Method | Resource Path | Integration Traget |
     | --- | --- | --- |
     | GET | /product | Lambda function |
     | GET | /product/{id} | Lambda function |
     | POST | /product | Lambda function |
     | DELETE | /product/{id} | Lambda function |
-    
+
 - Configure Stage : default
-    
+
 
 (3) Test API
 
@@ -85,7 +85,7 @@ export const handler = async (event) => {
         "category": "phone"
     },
     "requestContext": {
-        "accountId": "165015980598",
+        "accountId": "{ACCOUNT ID}",
         "apiId": "tbcilo5gwb",
         "domainName": "tbcilo5gwb.execute-api.us-east-1.amazonaws.com",
         "domainPrefix": "tbcilo5gwb",

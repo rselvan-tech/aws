@@ -7,11 +7,11 @@ Below is the **exact step-by-step way to run your code from VS Code**.
 Your code uses **AWS SDK for JavaScript v3** to:
 
 - Authenticate using your **aws-vault CLI credentials**
-    
+
 - Call **Amazon S3**
-    
+
 - List all S3 buckets in your account
-    
+
 
 It runs **locally on your machine**.
 
@@ -22,11 +22,11 @@ It runs **locally on your machine**.
 In VS Code:
 
 1.  Open a new empty folder
-    
+
 2.  Open **Terminal** in VS Code
-    
+
 3.  Run:
-    
+
 
 `npm init -y`
 

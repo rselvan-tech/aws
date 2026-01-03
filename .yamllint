@@ -1,0 +1,32 @@
+extends: default
+
+rules:
+  # K8s multi-document support
+  document-start: disable
+
+  # Very lenient line length (won't fail on long lines)
+  line-length:
+    max: 500
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+
+  # Flexible indentation (reports but doesn't fail)
+  indentation:
+    spaces: consistent
+    indent-sequences: consistent
+    check-multi-line-strings: false
+
+  # Don't be strict about formatting
+  trailing-spaces: disable
+  comments: disable
+  comments-indentation: disable
+
+  # Allow empty values
+  empty-values:
+    forbid-in-block-mappings: false
+    forbid-in-flow-mappings: false
+
+  # Allow any quote style
+  quoted-strings:
+    quote-type: any
+    required: false

@@ -1,0 +1,11 @@
+# yamlfix configuration for K8s/AWS YAML files
+
+line_length = 400
+indent_mapping = 2
+indent_sequence = 2
+preserve_quotes = false
+quote_representation = "'"
+section_whitelines = 1
+
+# Preserve existing formatting choices
+flow_style = "preserve"

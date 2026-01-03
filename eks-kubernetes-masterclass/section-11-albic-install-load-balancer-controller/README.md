@@ -66,7 +66,7 @@ eksctl get nodegroup --cluster={{CLUSTER NAME}}
 
 # Verify if any IAM Service Accounts present in EKS Cluster
 eksctl get iamserviceaccount --cluster={{CLUSTER NAME}}
-Observation: No k8s Service accounts as of now. 
+Observation: No k8s Service accounts as of now.
 
 
 # Verify EKS Nodes in EKS Cluster using kubectl
@@ -94,14 +94,14 @@ kubectl get nodes
 # Download latest IAM Policy file from LBC project github
 curl -o lbc_iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 
-# Create IAM Policy using policy downloaded 
+# Create IAM Policy using policy downloaded
 aws iam create-policy \
     --policy-name LBCIAMPolicy \
     --policy-document file://lbc_iam_policy.json
-    
+
 # Note down Policy ARN from above command and use the same below
 
-# Create IAM Role and Service Account.Connect the sa to Role using annotation 
+# Create IAM Role and Service Account.Connect the sa to Role using annotation
 eksctl create iamserviceaccount \
   --cluster={{CLUSTER NAME}} \
   --namespace=kube-system \
@@ -133,7 +133,7 @@ helm repo update
 
 
 ## Replace Cluster Name, Region Code, VPC ID
-  
+
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
   --set clusterName={{CLUSTER NAME}} \
@@ -145,7 +145,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set enableShield=false \
   --set enableWaf=false \
   --set enableWafv2=false
-  
+
 # --set enableShield=false \          # Disable AWS Shield (costs money)
 # --set enableWaf=false \              # Disable WAF integration
 # --set enableWafv2=false \            # Disable WAFv2 integration
@@ -170,7 +170,7 @@ kubectl -n kube-system get deployment aws-load-balancer-controller -o yaml
 Observation:
 1. Verify "spec.selector" label in "aws-load-balancer-webhook-service"
 2. Compare it with "aws-load-balancer-controller" Deployment "spec.selector.matchLabels"
-3. Both values should be same which traffic coming to "aws-load-balancer-webhook-service" on port 443 will be sent to port 9443 on "aws-load-balancer-controller" deployment related pods. 
+3. Both values should be same which traffic coming to "aws-load-balancer-webhook-service" on port 443 will be sent to port 9443 on "aws-load-balancer-controller" deployment related pods.
 ```
 
 &nbsp;
@@ -187,7 +187,7 @@ metadata:
     ingressclass.kubernetes.io/is-default-class: "true"
 spec:
   controller: ingress.k8s.aws/alb
-  
+
 #Create ingress class
 kubectl apply -f ingress-class.yaml
 

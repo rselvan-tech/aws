@@ -5,7 +5,7 @@ echo "Usage : ./setup-eks.sh [CLUSTER_NAME] [AWS_REGION]"
 
 # Take cluster name and region as parameters with defaults
 CLUSTER_NAME=${1:-my-eks}
-AWS_REGION=${2:-$(aws configure get region)}
+AWS_REGION=${2:-${AWS_REGION:-${AWS_DEFAULT_REGION}}}
 
 # Load environment variables
 if [ ! -f config.env ]; then
