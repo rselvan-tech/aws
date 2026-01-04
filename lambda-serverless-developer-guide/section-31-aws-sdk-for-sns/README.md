@@ -391,11 +391,11 @@ Success :  {
 
 a. Open the topic in SNS Console and click `Publish message`
 
-![alt text](images\1.png)
+![alt text](images/1.png)
 
 b. Fill subject & message body, then click `Publish message`
 
-![alt text](images\2.png)
+![alt text](images/2.png)
 
 4. Check your inbox for the second message sent from the console.
 

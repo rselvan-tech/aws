@@ -38,7 +38,7 @@ Open  **Simple Notification Service**
 5. Leave other settings as default
 6. Click **Create topic**
 
-![alt text](images\1.1.png)
+![alt text](images/1.1.png)
 
 ---
 
@@ -49,7 +49,7 @@ Open  **Simple Notification Service**
 - Topic name: `GoalNotification`
 - Type: Standard
 
-![alt text](images\1.2.png)
+![alt text](images/1.2.png)
 
 ---
 
@@ -66,7 +66,7 @@ Open  **Lamnda Service**
 5. Leave other settings as default
 6. Click **Create function**
 
-![alt text](images\2.1.png)
+![alt text](images/2.1.png)
 ---
 
 ### Step 2: Check Asynchronous Invocation Settings
@@ -115,7 +115,7 @@ Open  **Lamnda Service**
 
 **Important:** in this method, Lambda automatically adds required permissions for SNS to invoke the function.
 
-![alt text](images\3.1.png)
+![alt text](images/3.1.png)
 
 ---
 
@@ -128,7 +128,7 @@ Open  **Lamnda Service**
 
 **Policy allows:** SNS topic `GoalNotification` to invoke Lambda function `GoalFunction`
 
-![alt text](images\3.2.png)
+![alt text](images/3.2.png)
 ---
 
 ### Step 3: Confirm Subscription in SNS
@@ -140,7 +140,7 @@ Open  **Lamnda Service**
 5. Protocol: **LAMBDA**
 6. Endpoint: Lambda function ARN
 
-![alt text](images\3.3.png)
+![alt text](images/3.3.png)
 
 ---
 
@@ -222,7 +222,6 @@ export const handler = async (event) => {
 
 ### Step 1: Publish Message from SNS
 
-![Screenshot: Publish Message](screenshots/16-publish-message.png)
 
 1. Go to **SNS Console**
 2. Open **GoalNotification** topic
@@ -237,7 +236,7 @@ export const handler = async (event) => {
     3. Leave other settings as default
     4. Click **Publish message**
 
-![alt text](images\5.1.png)
+![alt text](images/5.1.png)
 ---
 
 ### Step 2: Verify Message Published
@@ -265,9 +264,8 @@ Success message should appear:
    - Extracted message
    - Execution details
 
+![alt text](images/5.4.png)
 
-
-![alt text](images\5.4.png)
 **Received event from SNS:**
 ```
 {
